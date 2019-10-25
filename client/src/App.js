@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "normalize.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 
 import UsernameForm from "./components/UsernameForm";
@@ -14,31 +14,33 @@ const App = props => {
   return (
     <div className={className}>
       <Router>
-        <Route
-          exact
-          path="/"
-          render={props => (
-            <UsernameForm
-              {...props}
-              roomToRemember={roomToRemember}
-              setUsername={setUsername}
-            />
-          )}
-          setUsername={setUsername}
-        />
-        <Route
-          exact
-          path="/room/:room_id"
-          render={props => (
-            <Room
-              {...props}
-              username={username}
-              setRoomToRemember={setRoomToRemember}
-            />
-          )}
-          username={username}
-        />
-        <Route exact path="*" component={NotFound} />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <UsernameForm
+                {...props}
+                roomToRemember={roomToRemember}
+                setUsername={setUsername}
+              />
+            )}
+            setUsername={setUsername}
+          />
+          <Route
+            exact
+            path="/room/:room_id"
+            render={props => (
+              <Room
+                {...props}
+                username={username}
+                setRoomToRemember={setRoomToRemember}
+              />
+            )}
+            username={username}
+          />
+          <Route exact path="*" component={NotFound} />
+        </Switch>
       </Router>
     </div>
   );
